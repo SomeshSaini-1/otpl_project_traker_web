@@ -104,7 +104,7 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Mailstone </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Milestone </label>
             <span className='flex gap-2'>
 
               <input
