@@ -17,14 +17,14 @@ export interface Project {
 }
 
 export const DEPARTMENTS = [
-  'Engineering',
-  'Marketing',
-  'Sales',
-  'Operations',
+  '',
+  'Hardware',
+  'Firmware',
+  'Software',
+  'Production',
   'HR',
   'Finance',
-  'Design',
-  'Product'
+  'Sales/BD'
 ];
 
 export const DEFAULT_STAGES = [

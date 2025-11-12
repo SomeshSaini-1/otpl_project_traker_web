@@ -47,6 +47,11 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
         }))
       });
 
+      // validate required fields
+      if (!Assignto.trim() || mailstone.length === 0 || department === "") {
+        alert("All fields are required.");
+        return;
+      }
       console.log(jsondata);
 
       const response = await fetch("http://otpl_project_tacker_api.otplai.com/api/Add_project", {
@@ -115,8 +120,11 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
                 placeholder="Assign to"
                   
               />
-              <button onClick={() => { setmailstone(pro => [...pro, mailstone1]); setmailstone1("") }}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" >Add</button>
+              
+              <button type="button" onClick={() => { setmailstone(pro => [...pro, mailstone1]); setmailstone1("") }}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" >
+                  Add
+              </button>
 
             </span>
             <div className='flex gap-2'>
@@ -145,8 +153,9 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
               onChange={(e) => setDepartment(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
+              {/* <option defaultValue="" selected>Select Department</option> */}
               {DEPARTMENTS.map(dept => (
-                <option key={dept} value={dept}>{dept}</option>
+                <option key={dept} value={dept}>{dept || "Select Department"}</option>
               ))}
             </select>
           </div>

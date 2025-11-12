@@ -15,7 +15,7 @@ export default function AppLayout() {
     const loadProjects = async () => {
       const data = await fetchProjects();
       setProjects(data);
-      console.log(data);
+      // console.log(data);
     };
     loadProjects(); // 👈 calls your function on component mount
   }, [projects]);
