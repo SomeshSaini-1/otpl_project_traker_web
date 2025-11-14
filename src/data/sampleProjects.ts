@@ -1,13 +1,13 @@
 
 import { Project, DEFAULT_STAGES } from '../types/project';
 
-const createStages = (completedCount: number) => {
-  return DEFAULT_STAGES.map((name, index) => ({
-    id: `stage-${index}`,
-    name,
-    completed: index < completedCount
-  }));
-};
+// const createStages = (completedCount: number) => {
+//   return DEFAULT_STAGES.map((name, index) => ({
+//     id: `stage-${index}`,
+//     name,
+//     completed: index < completedCount
+//   }));
+// };
 
 
 export const fetchProjects = async (): Promise<Project[]> => {

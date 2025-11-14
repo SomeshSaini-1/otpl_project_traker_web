@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DEPARTMENTS, DEFAULT_STAGES } from '../types/project';
 
 interface AddProjectModalProps {
@@ -12,7 +12,15 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
   const [Assignto, setAssignto] = useState('');
   const [mailstone, setmailstone] = useState([]);
   const [mailstone1, setmailstone1] = useState("");
-  const [department, setDepartment] = useState(DEPARTMENTS[0]);
+  const [department, setDepartment] = useState("");
+
+useEffect(() => {
+  // console.log("Selected Department:", department,DEFAULT_STAGES[0].department);
+    if (department != "") {
+    setmailstone(DEFAULT_STAGES[0][department]);
+  }
+}, [department,DEFAULT_STAGES]);
+
 
   if (!isOpen) return null;
 
@@ -72,6 +80,7 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
       // onAdd(newProject);
       setName('');
       setAssignto('');
+      setmailstone([]);
       setDepartment(DEPARTMENTS[0]);
       onClose();
     } catch (error) {
@@ -109,7 +118,21 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Stages </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Department</label>
+            <select
+              value={department}
+              onChange={(e) => setDepartment(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="" >Select Department</option>
+              {DEPARTMENTS.map(dept => (
+                <option key={dept} value={dept}>{dept}</option>
+              ))}
+            </select>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Stages</label>
             <span className='flex gap-2'>
 
               <input
@@ -131,10 +154,10 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
 
               {mailstone.map((item, idx) => (
 
-                <span className='flex gap-2'>
+                <span className='flex gap-2' key={idx}>
                   {item}
                   <button
-                    type="button"
+                    type="button" key={idx}
                     onClick={() => setmailstone(prev => prev.filter((_, i) => i !== idx))}
                     className="text-red-600 hover:text-red-800 text-sm"
                   >
@@ -146,19 +169,6 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({ isOpen, onClos
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Department</label>
-            <select
-              value={department}
-              onChange={(e) => setDepartment(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              {/* <option defaultValue="" selected>Select Department</option> */}
-              {DEPARTMENTS.map(dept => (
-                <option key={dept} value={dept}>{dept || "Select Department"}</option>
-              ))}
-            </select>
-          </div>
           <div className="flex gap-3 pt-4">
             <button
               type="button"
